@@ -1,5 +1,6 @@
 from flask import Flask, request, json, Response
 from pymongo import MongoClient
+from bson.json_util import dumps
 
 app = Flask(__name__)
 
@@ -10,9 +11,9 @@ client = MongoClient(uri,
                      tls=True,
                      tlsCertificateKeyFile='/root/edtech/X509-cert-1555286125965723181.pem')
 
-db = client['edtechExtensionData']
+db = client['testDB']
 
-collection = db['collectionData']
+collection = db['testCol']
 #mydict = { "name": "John", "address": "Highway 37" }
 #x = collection.insert_one(mydict)
 #print(client.list_database_names())
@@ -32,6 +33,16 @@ def mongo_write():
     print(data)
     collection.insert_one(data)
     return Response(response=data,
+                    status=200,
+                    mimetype='application/json')
+
+
+@app.route('/all', methods=['GET'])
+def get_all():
+    print("getting all from db")
+    all_records = list(collection.find())
+    print(all_records)
+    return Response(response=dumps(all_records),
                     status=200,
                     mimetype='application/json')
     
