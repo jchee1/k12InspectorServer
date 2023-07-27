@@ -1,3 +1,5 @@
 /__pycache__
 /env
 /X509-cert-1555286125965723181.pem
+production.access.log
+production.error.log
