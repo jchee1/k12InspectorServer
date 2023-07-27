@@ -11,6 +11,21 @@ Alternatively in a tmux instance:
 3. Run `./test.sh`. 
 
 
+
+
+## Mongo Knowledge 
+
+### What If Mongo stops working 
+There are four functions that would be useful here:
+- `systemctl start mongod` => Start the the service
+- `systemctl status mongod` => Status of the service
+- `systemctl restart mongod` => restart the service
+- `systemctl reload mongod` => reload the service
+
+My suggestion is to check status (`systemctl status mongod`) and then try starting it again (`systemctl start mongod`)
+
+
+
 ### Exporting The DB
 - First go to the root directory 
     - The line to run is `mongoexport --db database_name --collection <collection_name> --out <output_file>.json` from the base terminal, not the mongo shell
@@ -61,3 +76,9 @@ Or
 ```
 db.<collection_name>.find().pretty()
 ```
+
+#### What If I Run A Python Script To Export
+Run that python script in the background with `nohup python3 mongoExport.py &`.
+If you want to stop that script you need to do the following in bash
+1. `jobs`
+2. `kill %1`
